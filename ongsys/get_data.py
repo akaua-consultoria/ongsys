@@ -27,8 +27,12 @@ def get_data(endpoint, user, apikey, params=None):
         # requisição GET para a API com a autenticação básica
         response = requests.get(url+endpoint, auth=auth, params=params)
         
-        # total de instâncias para conferência
-        totalRecords = response.json()['totalRecords']
+        try:
+            # total de instâncias para conferência
+            totalRecords = response.json()['totalRecords']
+        except:
+            totalRecords = 0
+            print('No records')
         
     except requests.exceptions.RequestException as e:
         # Ocorreu um erro ao fazer a requisição
